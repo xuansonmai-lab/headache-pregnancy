@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headache Assessment in Pregnancy and Postpartum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .reference-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .reference-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group select, .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #edf2f7;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .result-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .result-box ul {
+            margin-left: 20px;
+        }
+
+        .differential-item {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid white;
+        }
+
+        .differential-item h4 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .probability-high {
+            border-left-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .probability-medium {
+            border-left-color: #feca57;
+            background: rgba(254, 202, 87, 0.1);
+        }
+
+        .probability-low {
+            border-left-color: #48dbfb;
+            background: rgba(72, 219, 251, 0.1);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .clinical-summary {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3c72 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .collapsible {
+            background: linear-gradient(135deg, #5a9fd4 0%, #306998 100%);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background: linear-gradient(135deg, #4a8bc2 0%, #2e5d87 100%);
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible.active:after {
+            content: "\2212";
+        }
+
+        .collapsible-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            color: #333;
+        }
+
+        .collapsible-content.active {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .collapsible-content .differential-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #2d3748;
+        }
+
+        .collapsible-content .differential-item h4 {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .collapsible-content .differential-item ul {
+            color: #4a5568;
+        }
+
+        .collapsible-content .differential-item.probability-high {
+            border-left: 4px solid #e53e3e;
+            background: #fed7d7;
+        }
+
+        .collapsible-content .differential-item.probability-medium {
+            border-left: 4px solid #dd6b20;
+            background: #feebc8;
+        }
+
+        .collapsible-content .differential-item.probability-low {
+            border-left: 4px solid #3182ce;
+            background: #bee3f8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .step {
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🩺 Headache Assessment</h1>
+            <p>In Pregnancy and Postpartum Period</p>
+            <a href="https://www-uptodate-com.ump.remotexs.co/contents/headache-during-pregnancy-and-postpartum" target="_blank" class="reference-link">
+                📚 Reference: UpToDate Guidelines
+            </a>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+            </div>
+        </div>
+
+        <!-- Step 1: History Taking -->
+        <div class="step" id="step1">
+            <div class="card">
+                <h2 class="section-title">🗣️ Step 1: History Taking</h2>
+                
+                <div class="grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="pregnancyStatus">Pregnancy/Postpartum Status:</label>
+                            <select id="pregnancyStatus" required>
+                                <option value="">-- Select --</option>
+                                <option value="pregnant_<20w">Pregnancy < 20 weeks</option>
+                                <option value="pregnant_>=20w">Pregnancy ≥ 20 weeks</option>
+                                <option value="postpartum_<48h">Postpartum < 48 hours</option>
+                                <option value="postpartum_48h-7d">Postpartum 48h - 7 days</option>
+                                <option value="postpartum_>7d">Postpartum > 7 days</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="headacheOnset">Headache onset pattern:</label>
+                            <select id="headacheOnset" required>
+                                <option value="">-- Select --</option>
+                                <option value="new">New onset headache</option>
+                                <option value="existing">Pre-existing headache disorder</option>
+                                <option value="changed">Changed pattern from usual</option>
+                                <option value="first_ever">First headache ever</option>
+                                <option value="thunderclap">Thunderclap (sudden, maximal intensity)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="headacheType">Headache characteristics:</label>
+                            <select id="headacheType" required>
+                                <option value="">-- Select --</option>
+                                <option value="sudden_severe">Sudden onset, severe (thunderclap)</option>
+                                <option value="gradual_throbbing">Gradual onset, throbbing/pulsating</option>
+                                <option value="pressure_tightness">Pressure/tightness sensation</option>
+                                <option value="unilateral_severe">Unilateral, severe, stabbing</option>
+                                <option value="diffuse_constant">Diffuse, constant, holocephalic</option>
+                                <option value="positional">Positional (worse when upright)</option>
+                                <option value="orthostatic">Orthostatic (worse standing, better lying)</option>
+                                <option value="exertional">Precipitated by exertion/cough/Valsalva</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="headacheLocation">Headache location:</label>
+                            <select id="headacheLocation" required>
+                                <option value="">-- Select --</option>
+                                <option value="unilateral">Unilateral</option>
+                                <option value="bilateral">Bilateral</option>
+                                <option value="frontal">Frontal</option>
+                                <option value="occipital">Occipital</option>
+                                <option value="temporal">Temporal</option>
+                                <option value="diffuse">Diffuse/holocephalic</option>
+                                <option value="around_eye">Around eye/temple</option>
+                                <option value="vertex">Vertex/top of head</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="headacheDuration">Duration per episode:</label>
+                            <select id="headacheDuration" required>
+                                <option value="">-- Select --</option>
+                                <option value="15min-3h">15 minutes - 3 hours</option>
+                                <option value="30min-7d">30 minutes - 7 days</option>
+                                <option value="4-72h">4 - 72 hours</option>
+                                <option value="continuous">Continuous/constant</option>
+                                <option value="seconds-minutes">Seconds to minutes</option>
+                                <option value="hours-days">Hours to days</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="painIntensity">Pain intensity (1-10):</label>
+                            <input type="range" id="painIntensity" min="1" max="10" value="5">
+                            <span id="painValue">5</span>/10
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="headacheHistory">Previous headache history:</label>
+                            <select id="headacheHistory">
+                                <option value="">-- Select --</option>
+                                <option value="none">No previous headaches</option>
+                                <option value="migraine">History of migraine</option>
+                                <option value="tension">History of tension-type headache</option>
+                                <option value="cluster">History of cluster headache</option>
+                                <option value="menstrual_migraine">History of menstrual migraine</option>
+                                <option value="other">Other headache type</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="neuraxialHistory">Neuraxial anesthesia history:</label>
+                            <select id="neuraxialHistory">
+                                <option value="">-- Select --</option>
+                                <option value="none">No neuraxial anesthesia</option>
+                                <option value="spinal">Spinal anesthesia</option>
+                                <option value="epidural">Epidural anesthesia</option>
+                                <option value="cse">Combined spinal-epidural</option>
+                                <option value="difficult_procedure">Difficult/multiple attempts</option>
+                                <option value="unknown">Unknown/uncertain</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medicationUse">Current medication use:</label>
+                            <select id="medicationUse">
+                                <option value="">-- Select --</option>
+                                <option value="none">No regular medications</option>
+                                <option value="analgesics_frequent">Frequent analgesic use (>10 days/month)</option>
+                                <option value="analgesics_occasional">Occasional analgesic use</option>
+                                <option value="antihypertensives">Antihypertensive medications</option>
+                                <option value="antidepressants">Antidepressants</option>
+                                <option value="ergots">Recent ergot use</option>
+                                <option value="vasoconstrictors">Nasal decongestants/vasoconstrictors</option>
+                                <option value="other">Other medications</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sleepPattern">Sleep pattern:</label>
+                            <select id="sleepPattern">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal, regular sleep</option>
+                                <option value="deprived">Sleep deprivation</option>
+                                <option value="irregular">Irregular sleep schedule</option>
+                                <option value="awakens_patient">Headache awakens from sleep</option>
+                                <option value="insomnia">Insomnia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="triggers">Headache triggers:</label>
+                            <select id="triggers">
+                                <option value="">-- Select --</option>
+                                <option value="none_identified">No specific triggers</option>
+                                <option value="stress">Stress/emotional factors</option>
+                                <option value="visual">Visual stimuli/bright lights</option>
+                                <option value="weather">Weather changes</option>
+                                <option value="food">Specific foods (cheese, chocolate, wine)</option>
+                                <option value="fasting">Skipping meals/fasting</option>
+                                <option value="hormonal">Hormonal changes</option>
+                                <option value="multiple">Multiple triggers</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exposureHistory">Recent exposures:</label>
+                            <select id="exposureHistory">
+                                <option value="">-- Select --</option>
+                                <option value="none">No significant exposures</option>
+                                <option value="carbon_monoxide">Possible carbon monoxide exposure</option>
+                                <option value="toxins">Chemical/toxic exposure</option>
+                                <option value="illicit_drugs">Illicit drug use</option>
+                                <option value="travel">Recent travel</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Associated symptoms (check all that apply):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="nausea" value="nausea">
+                            <label for="nausea">Nausea/vomiting</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="photophobia" value="photophobia">
+                            <label for="photophobia">Photophobia</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="phonophobia" value="phonophobia">
+                            <label for="phonophobia">Phonophobia</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blurredVision" value="blurredVision">
+                            <label for="blurredVision">Blurred vision</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="visualDisturbance" value="visualDisturbance">
+                            <label for="visualDisturbance">Visual aura/scotomata</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="alteredConsciousness" value="alteredConsciousness">
+                            <label for="alteredConsciousness">Altered consciousness/confusion</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="seizure" value="seizure">
+                            <label for="seizure">Seizure</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="epigastricPain" value="epigastricPain">
+                            <label for="epigastricPain">Epigastric pain</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autonomicSymptoms" value="autonomicSymptoms">
+                            <label for="autonomicSymptoms">Cranial autonomic symptoms (lacrimation, nasal congestion)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tinnitus" value="tinnitus">
+                            <label for="tinnitus">Tinnitus</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="diplopia" value="diplopia">
+                            <label for="diplopia">Double vision</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hemianopsia" value="hemianopsia">
+                            <label for="hemianopsia">Visual field defects</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="weakness" value="weakness">
+                            <label for="weakness">Weakness/motor symptoms</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="speechChanges" value="speechChanges">
+                            <label for="speechChanges">Speech changes/aphasia</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sensoryChanges" value="sensoryChanges">
+                            <label for="sensoryChanges">Sensory changes/numbness</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="nextStep(2)">Next: Physical Examination →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Physical Examination -->
+        <div class="step hidden" id="step2">
+            <div class="card">
+                <h2 class="section-title">🔍 Step 2: Physical Examination</h2>
+                
+                <div class="grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="bloodPressure">Blood pressure:</label>
+                            <select id="bloodPressure" required>
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal (<140/90 mmHg)</option>
+                                <option value="mild_htn">Mild hypertension (140-159/90-99 mmHg)</option>
+                                <option value="severe_htn">Severe hypertension (≥160/110 mmHg)</option>
+                                <option value="hypotension">Hypotension</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="temperature">Temperature:</label>
+                            <select id="temperature">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal (<37.5°C)</option>
+                                <option value="fever">Fever (≥37.5°C)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mentalStatus">Mental status:</label>
+                            <select id="mentalStatus" required>
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal/alert</option>
+                                <option value="confused">Confused/disoriented</option>
+                                <option value="lethargic">Lethargic</option>
+                                <option value="obtunded">Obtunded</option>
+                                <option value="comatose">Comatose</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="neuroExam">Neurological examination:</label>
+                            <select id="neuroExam" required>
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal</option>
+                                <option value="focal_deficits">Focal neurological deficits</option>
+                                <option value="altered_mental">Altered mental status</option>
+                                <option value="meningeal_signs">Meningeal signs (neck stiffness, Kernig's, Brudzinski's)</option>
+                                <option value="papilledema">Papilledema</option>
+                                <option value="cranial_nerve">Cranial nerve dysfunction</option>
+                                <option value="motor_weakness">Motor weakness/hemiparesis</option>
+                                <option value="sensory_deficits">Sensory deficits</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reflexes">Deep tendon reflexes:</label>
+                            <select id="reflexes">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal</option>
+                                <option value="hyperreflexia">Hyperreflexia</option>
+                                <option value="hyporeflexia">Hyporeflexia</option>
+                                <option value="clonus">Clonus present</option>
+                                <option value="absent">Absent reflexes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="edema">Edema:</label>
+                            <select id="edema">
+                                <option value="">-- Select --</option>
+                                <option value="none">No edema</option>
+                                <option value="mild">Mild edema</option>
+                                <option value="moderate">Moderate edema</option>
+                                <option value="severe">Severe/generalized edema</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="posturalComponent">Postural component:</label>
+                            <select id="posturalComponent">
+                                <option value="">-- Select --</option>
+                                <option value="none">No postural component</option>
+                                <option value="present">Present (worse when upright, better supine)</option>
+                                <option value="opposite">Opposite (worse supine)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fundoscopy">Fundoscopic examination:</label>
+                            <select id="fundoscopy">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal</option>
+                                <option value="papilledema">Papilledema</option>
+                                <option value="hemorrhages">Retinal hemorrhages</option>
+                                <option value="exudates">Hard exudates</option>
+                                <option value="not_done">Not performed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardiovascular">Cardiovascular examination:</label>
+                            <select id="cardiovascular">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal</option>
+                                <option value="tachycardia">Tachycardia</option>
+                                <option value="bradycardia">Bradycardia</option>
+                                <option value="murmur">New murmur</option>
+                                <option value="irregular">Irregular rhythm</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="neckExam">Neck examination:</label>
+                            <select id="neckExam">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal, supple</option>
+                                <option value="stiff">Neck stiffness/rigidity</option>
+                                <option value="lymphadenopathy">Lymphadenopathy</option>
+                                <option value="thyromegaly">Thyromegaly</option>
+                                <option value="bruit">Carotid bruit</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Red flag signs (check all present):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="suddenOnset" value="suddenOnset">
+                            <label for="suddenOnset">Sudden onset severe headache (thunderclap)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="progressiveWorsening" value="progressiveWorsening">
+                            <label for="progressiveWorsening">Progressive worsening over days/weeks</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="awakeFromSleep" value="awakeFromSleep">
+                            <label for="awakeFromSleep">Awakens patient from sleep</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="unrelievedByMeds" value="unrelievedByMeds">
+                            <label for="unrelievedByMeds">Unrelieved by pain medication</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="associatedFever" value="associatedFever">
+                            <label for="associatedFever">Associated with fever</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="neckStiffness" value="neckStiffness">
+                            <label for="neckStiffness">Neck stiffness/meningeal signs</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="newNeuroSigns" value="newNeuroSigns">
+                            <label for="newNeuroSigns">New focal neurological signs</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="precipitatedByExertion" value="precipitatedByExertion">
+                            <label for="precipitatedByExertion">Precipitated by exertion/Valsalva</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ageOver50" value="ageOver50">
+                            <label for="ageOver50">Age > 50 years (new headache)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="immunocompromised" value="immunocompromised">
+                            <label for="immunocompromised">Immunocompromised state</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <button class="btn" onclick="previousStep(1)">← Back</button>
+                    <button class="btn" onclick="generateDifferentialDiagnosis()">Generate Differential Diagnosis →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Differential Diagnosis and Lab Orders -->
+        <div class="step hidden" id="step3">
+            <div class="card">
+                <h2 class="section-title">💡 Step 3: Differential Diagnosis and Laboratory Orders</h2>
+                
+                <div id="differentialDiagnosis"></div>
+                <div id="labIndications"></div>
+
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="btn" onclick="previousStep(2)">← Back</button>
+                    <button class="btn" onclick="nextStep(4)">Enter Lab Results →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Lab Results and Final Diagnosis -->
+        <div class="step hidden" id="step4">
+            <div class="card">
+                <h2 class="section-title">🧪 Step 4: Laboratory Results and Final Diagnosis</h2>
+                
+                <div class="grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="proteinuria">Proteinuria:</label>
+                            <select id="proteinuria">
+                                <option value="">-- Select --</option>
+                                <option value="negative">Negative</option>
+                                <option value="trace">Trace (+/-)</option>
+                                <option value="1+">1+</option>
+                                <option value="2+">2+</option>
+                                <option value="3+">3+</option>
+                                <option value="4+">4+</option>
+                                <option value="quantitative_300">Quantitative ≥300 mg/24h</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="platelets">Platelets (×10³/μL):</label>
+                            <input type="number" id="platelets" placeholder="e.g., 250">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alt">ALT (U/L):</label>
+                            <input type="number" id="alt" placeholder="e.g., 25">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ast">AST (U/L):</label>
+                            <input type="number" id="ast" placeholder="e.g., 30">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hemoglobin">Hemoglobin (g/dL):</label>
+                            <input type="number" step="0.1" id="hemoglobin" placeholder="e.g., 12.0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wbcCount">White Blood Cell Count (×10³/μL):</label>
+                            <input type="number" id="wbcCount" placeholder="e.g., 8.5">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="creatinine">Creatinine (mg/dL):</label>
+                            <input type="number" step="0.1" id="creatinine" placeholder="e.g., 0.8">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ldh">LDH (U/L):</label>
+                            <input type="number" id="ldh" placeholder="e.g., 200">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="uricAcid">Uric acid (mg/dL):</label>
+                            <input type="number" step="0.1" id="uricAcid" placeholder="e.g., 4.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="haptoglobin">Haptoglobin (mg/dL):</label>
+                            <input type="number" id="haptoglobin" placeholder="e.g., 100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peripheralSmear">Peripheral blood smear:</label>
+                            <select id="peripheralSmear">
+                                <option value="">-- Select --</option>
+                                <option value="normal">Normal</option>
+                                <option value="schistocytes">Schistocytes present</option>
+                                <option value="not_done">Not performed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lumbarPuncture">Lumbar puncture (if performed):</label>
+                            <select id="lumbarPuncture">
+                                <option value="">-- Select --</option>
+                                <option value="not_done">Not performed</option>
+                                <option value="normal">Normal CSF</option>
+                                <option value="elevated_pressure">Elevated opening pressure</option>
+                                <option value="xanthochromia">Xanthochromia present</option>
+                                <option value="pleocytosis">Pleocytosis (elevated WBC)</option>
+                                <option value="elevated_protein">Elevated protein</option>
+                                <option value="low_glucose">Low glucose</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <button class="btn" onclick="previousStep(3)">← Back</button>
+                    <button class="btn" onclick="generateFinalDiagnosis()">Generate Final Diagnosis</button>
+                </div>
+
+                <div id="finalDiagnosis"></div>
+                <div id="clinicalSummary"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update progress bar
+        function updateProgress(step) {
+            const progress = (step / 4) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Update pain value display
+        document.getElementById('painIntensity').addEventListener('input', function() {
+            document.getElementById('painValue').textContent = this.value;
+        });
+
+        // Navigation functions
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.add('hidden');
+            });
+            
+            document.getElementById('step' + stepNumber).classList.remove('hidden');
+            updateProgress(stepNumber);
+        }
+
+        function previousStep(stepNumber) {
+            nextStep(stepNumber);
+        }
+
+        // Collect associated symptoms
+        function getAssociatedSymptoms() {
+            const symptoms = [];
+            const symptomCheckboxes = ['nausea', 'photophobia', 'phonophobia', 'blurredVision', 'visualDisturbance', 
+                                     'alteredConsciousness', 'seizure', 'epigastricPain', 'autonomicSymptoms', 
+                                     'tinnitus', 'diplopia', 'hemianopsia', 'weakness', 'speechChanges', 'sensoryChanges'];
+            
+            symptomCheckboxes.forEach(id => {
+                if (document.getElementById(id).checked) {
+                    symptoms.push(id);
+                }
+            });
+            return symptoms;
+        }
+
+        // Collect red flags
+        function getRedFlags() {
+            const redFlags = [];
+            const redFlagIds = ['suddenOnset', 'progressiveWorsening', 'awakeFromSleep', 'unrelievedByMeds', 
+                              'associatedFever', 'neckStiffness', 'newNeuroSigns', 'precipitatedByExertion',
+                              'ageOver50', 'immunocompromised'];
+            redFlagIds.forEach(id => {
+                if (document.getElementById(id).checked) {
+                    redFlags.push(id);
+                }
+            });
+            return redFlags;
+        }
+
+        // Generate differential diagnosis
+        function generateDifferentialDiagnosis() {
+            const pregnancyStatus = document.getElementById('pregnancyStatus').value;
+            const headacheOnset = document.getElementById('headacheOnset').value;
+            const headacheType = document.getElementById('headacheType').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+            const neuroExam = document.getElementById('neuroExam').value;
+            const posturalComponent = document.getElementById('posturalComponent').value;
+            const neuraxialHistory = document.getElementById('neuraxialHistory').value;
+            const medicationUse = document.getElementById('medicationUse').value;
+            const temperature = document.getElementById('temperature').value;
+            const neckExam = document.getElementById('neckExam').value;
+            const associatedSymptoms = getAssociatedSymptoms();
+            const redFlags = getRedFlags();
+
+            let differentials = [];
+            let labTests = '';
+            let urgency = '';
+
+            // Check for red flags first
+            if (redFlags.length > 0 || neuroExam !== 'normal') {
+                urgency = '<div class="warning">⚠️ URGENT EVALUATION REQUIRED - Red flag signs present!</div>';
+            }
+
+            // HIGH PROBABILITY diagnoses
+            
+            // 1. Preeclampsia with Severe Features - MUST consider first in pregnancy ≥20 weeks with headache
+            if (pregnancyStatus === 'pregnant_>=20w' || pregnancyStatus.includes('postpartum')) {
+                let preeclampsiaEvidence = [
+                    "Pregnancy ≥ 20 weeks or postpartum period",
+                    "New-onset persistent headache (severe feature per ACOG criteria)",
+                ];
+                
+                if (bloodPressure === 'mild_htn' || bloodPressure === 'severe_htn') {
+                    preeclampsiaEvidence.push("Hypertension: " + bloodPressure);
+                } else {
+                    preeclampsiaEvidence.push("Note: Preeclampsia can occur with normal BP if other severe features present");
+                }
+                
+                if (associatedSymptoms.includes('blurredVision')) preeclampsiaEvidence.push("Blurred vision (severe feature)");
+                if (associatedSymptoms.includes('visualDisturbance')) preeclampsiaEvidence.push("Visual disturbances/scotomata (severe feature)");
+                if (associatedSymptoms.includes('epigastricPain')) preeclampsiaEvidence.push("Epigastric pain (severe feature)");
+                if (associatedSymptoms.includes('seizure')) preeclampsiaEvidence.push("SEIZURE = ECLAMPSIA");
+                
+                differentials.push({
+                    name: "Preeclampsia with Severe Features",
+                    probability: "HIGH",
+                    evidence: preeclampsiaEvidence
+                });
+            }
+
+            // 2. PDPH (if postpartum + neuraxial + postural)
+            if (pregnancyStatus.includes('postpartum') && posturalComponent === 'present' && 
+                neuraxialHistory !== 'none' && neuraxialHistory !== '') {
+                differentials.push({
+                    name: "Post-Dural Puncture Headache (PDPH)",
+                    probability: "HIGH",
+                    evidence: [
+                        "Postpartum with neuraxial anesthesia: " + neuraxialHistory,
+                        "Classic postural component (worse upright, better supine)",
+                        "Typical onset within 48 hours of procedure",
+                        associatedSymptoms.includes('tinnitus') ? "Associated tinnitus" : null,
+                        associatedSymptoms.includes('diplopia') ? "Cranial nerve dysfunction" : null
+                    ].filter(Boolean)
+                });
+            }
+
+            // 3. Secondary headaches with red flags
+            if (headacheOnset === 'thunderclap' || redFlags.includes('suddenOnset')) {
+                differentials.push({
+                    name: "Subarachnoid Hemorrhage",
+                    probability: "HIGH",
+                    evidence: [
+                        "Sudden onset, severe (thunderclap) headache",
+                        "Red flag: worst headache of life",
+                        associatedSymptoms.includes('nausea') ? "Associated nausea/vomiting" : null,
+                        neckExam === 'stiff' ? "Neck stiffness" : null,
+                        "Higher risk in pregnancy/postpartum"
+                    ].filter(Boolean)
+                });
+            }
+
+            if (temperature === 'fever' || redFlags.includes('associatedFever')) {
+                differentials.push({
+                    name: "Meningitis/Encephalitis",
+                    probability: "HIGH",
+                    evidence: [
+                        "Fever present",
+                        neckExam === 'stiff' ? "Neck stiffness/meningeal signs" : null,
+                        associatedSymptoms.includes('alteredConsciousness') ? "Altered consciousness" : null,
+                        "Immunocompromised state in pregnancy"
+                    ].filter(Boolean)
+                });
+            }
+
+            // MEDIUM PROBABILITY diagnoses
+            
+            // 4. Medication Overuse Headache
+            if (medicationUse === 'analgesics_frequent') {
+                differentials.push({
+                    name: "Medication Overuse Headache",
+                    probability: "MEDIUM",
+                    evidence: [
+                        "Frequent analgesic use (>10 days/month)",
+                        "Daily or near-daily headaches",
+                        "May mask underlying primary headache disorder"
+                    ]
+                });
+            }
+
+            // 5. Migraine
+            if (headacheType === 'gradual_throbbing' && 
+                (associatedSymptoms.includes('nausea') || associatedSymptoms.includes('photophobia'))) {
+                differentials.push({
+                    name: "Migraine",
+                    probability: pregnancyStatus.includes('pregnant') ? "MEDIUM" : "HIGH",
+                    evidence: [
+                        "Throbbing/pulsating quality",
+                        associatedSymptoms.includes('nausea') ? "Nausea/vomiting" : null,
+                        associatedSymptoms.includes('photophobia') ? "Photophobia" : null,
+                        associatedSymptoms.includes('phonophobia') ? "Phonophobia" : null,
+                        associatedSymptoms.includes('visualDisturbance') ? "Visual aura" : null,
+                        "60-70% improve during pregnancy"
+                    ].filter(Boolean)
+                });
+            }
+
+            // 6. Cerebral Venous Thrombosis
+            if (pregnancyStatus.includes('postpartum') || pregnancyStatus.includes('pregnant')) {
+                differentials.push({
+                    name: "Cerebral Venous Thrombosis",
+                    probability: "MEDIUM",
+                    evidence: [
+                        "Increased risk in pregnancy/postpartum",
+                        redFlags.includes('progressiveWorsening') ? "Progressive worsening" : null,
+                        associatedSymptoms.includes('seizure') ? "Seizures may occur" : null,
+                        neuroExam === 'focal_deficits' ? "Focal neurological deficits" : null,
+                        "Can present with various headache patterns"
+                    ].filter(Boolean)
+                });
+            }
+
+            // LOW PROBABILITY diagnoses
+
+            // 7. Tension-type headache
+            if (headacheType === 'pressure_tightness' && !associatedSymptoms.includes('nausea')) {
+                differentials.push({
+                    name: "Tension-Type Headache",
+                    probability: "LOW",
+                    evidence: [
+                        "Bilateral pressure/tightness sensation",
+                        "Minimal associated symptoms",
+                        "No nausea/vomiting",
+                        "Course unchanged during pregnancy"
+                    ]
+                });
+            }
+
+            // 8. Cluster headache
+            if (headacheType === 'unilateral_severe' && associatedSymptoms.includes('autonomicSymptoms')) {
+                differentials.push({
+                    name: "Cluster Headache",
+                    probability: "LOW",
+                    evidence: [
+                        "Unilateral, severe, stabbing pain",
+                        "Cranial autonomic symptoms",
+                        "Short duration episodes",
+                        "Course probably unchanged in pregnancy"
+                    ]
+                });
+            }
+
+            // 9. RCVS (Reversible Cerebral Vasoconstriction Syndrome)
+            if (headacheOnset === 'thunderclap' || redFlags.includes('precipitatedByExertion')) {
+                differentials.push({
+                    name: "Reversible Cerebral Vasoconstriction Syndrome (RCVS)",
+                    probability: "LOW",
+                    evidence: [
+                        redFlags.includes('precipitatedByExertion') ? "Precipitated by exertion/Valsalva" : null,
+                        "Thunderclap headache pattern",
+                        "Can be triggered by vasoactive substances",
+                        "Higher risk in postpartum period"
+                    ].filter(Boolean)
+                });
+            }
+
+            // 10. PRES (Posterior Reversible Encephalopathy Syndrome)
+            if ((pregnancyStatus === 'pregnant_>=20w' || pregnancyStatus.includes('postpartum')) && 
+                (bloodPressure === 'severe_htn' || associatedSymptoms.includes('visualDisturbance'))) {
+                differentials.push({
+                    name: "Posterior Reversible Encephalopathy Syndrome (PRES)",
+                    probability: "LOW",
+                    evidence: [
+                        bloodPressure === 'severe_htn' ? "Severe hypertension" : null,
+                        associatedSymptoms.includes('visualDisturbance') ? "Visual disturbances" : null,
+                        associatedSymptoms.includes('seizure') ? "Seizures" : null,
+                        "Associated with preeclampsia/eclampsia"
+                    ].filter(Boolean)
+                });
+            }
+
+            // Format differential diagnosis with collapsible sections
+            let diffOutput = '<h3>🎯 Differential Diagnosis (Ranked by Probability)</h3>';
+            
+            differentials.forEach(diff => {
+                let probabilityClass = '';
+                switch(diff.probability) {
+                    case 'HIGH': probabilityClass = 'probability-high'; break;
+                    case 'MEDIUM': probabilityClass = 'probability-medium'; break;
+                    case 'LOW': probabilityClass = 'probability-low'; break;
+                }
+                
+                diffOutput += `<button type="button" class="collapsible">${diff.probability} PROBABILITY: ${diff.name}</button>`;
+                diffOutput += `<div class="collapsible-content">`;
+                diffOutput += `<div class="differential-item ${probabilityClass}">`;
+                diffOutput += '<h4>Clinical Evidence:</h4>';
+                diffOutput += '<ul>';
+                diff.evidence.forEach(evidence => {
+                    diffOutput += `<li>${evidence}</li>`;
+                });
+                diffOutput += '</ul></div></div>';
+            });
+
+            // Generate lab orders with collapsible sections
+            labTests = '<h3>🧪 Recommended Laboratory Investigations</h3>';
+            
+            // Preeclampsia workup - always first priority if pregnancy ≥20 weeks
+            if (pregnancyStatus === 'pregnant_>=20w' || pregnancyStatus.includes('postpartum')) {
+                labTests += '<button type="button" class="collapsible">🚨 URGENT - Preeclampsia Workup (FIRST PRIORITY)</button>';
+                labTests += '<div class="collapsible-content">';
+                labTests += '<div class="differential-item probability-high">';
+                labTests += '<h4>Essential Labs for Preeclampsia Diagnosis:</h4>';
+                labTests += '<ul>';
+                labTests += '<li><strong>Proteinuria:</strong> 24-hour urine (≥0.3g) OR protein/creatinine ratio (≥0.3) OR dipstick ≥2+</li>';
+                labTests += '<li><strong>Complete Blood Count:</strong> Platelets (<100,000/μL = severe feature)</li>';
+                labTests += '<li><strong>Comprehensive Metabolic Panel:</strong> Creatinine (>1.1 mg/dL = severe feature)</li>';
+                labTests += '<li><strong>Liver Function Tests:</strong> ALT/AST (≥2x upper limit normal = severe feature)</li>';
+                labTests += '<li><strong>LDH:</strong> Hemolysis marker (HELLP syndrome if >600 U/L)</li>';
+                labTests += '<li><strong>Peripheral blood smear:</strong> Schistocytes (hemolysis in HELLP)</li>';
+                labTests += '<li><strong>Haptoglobin:</strong> Decreased in hemolysis (<25 mg/dL)</li>';
+                labTests += '</ul>';
+                labTests += '<p><strong>Remember:</strong> Preeclampsia diagnosis requires HYPERTENSION + ≥1 severe feature OR proteinuria</p>';
+                labTests += '</div></div>';
+            }
+
+            // Other urgent workups based on red flags
+            if (differentials.some(d => d.name.includes('Subarachnoid') && d.probability === 'HIGH')) {
+                labTests += '<button type="button" class="collapsible">🚨 URGENT - Subarachnoid Hemorrhage Workup</button>';
+                labTests += '<div class="collapsible-content">';
+                labTests += '<div class="differential-item probability-high">';
+                labTests += '<h4>Emergency Studies:</h4>';
+                labTests += '<ul>';
+                labTests += '<li><strong>CT Head (non-contrast):</strong> First-line imaging - 95% sensitive within 24h</li>';
+                labTests += '<li><strong>Lumbar Puncture:</strong> If CT negative - look for xanthochromia, RBCs</li>';
+                labTests += '<li><strong>CTA Head/Neck:</strong> Vascular imaging for aneurysm source</li>';
+                labTests += '</ul></div></div>';
+            }
+
+            if (differentials.some(d => d.name.includes('Meningitis') && d.probability === 'HIGH')) {
+                labTests += '<button type="button" class="collapsible">🚨 URGENT - Meningitis Workup</button>';
+                labTests += '<div class="collapsible-content">';
+                labTests += '<div class="differential-item probability-high">';
+                labTests += '<h4>Infectious Workup:</h4>';
+                labTests += '<ul>';
+                labTests += '<li><strong>Blood Cultures:</strong> Before antibiotics (2 sets)</li>';
+                labTests += '<li><strong>Lumbar Puncture:</strong> CSF cell count, protein, glucose, Gram stain, culture</li>';
+                labTests += '<li><strong>Complete Blood Count:</strong> WBC with differential</li>';
+                labTests += '<li><strong>Inflammatory markers:</strong> Procalcitonin, CRP, ESR</li>';
+                labTests += '</ul></div></div>';
+            }
+
+            // Additional studies
+            labTests += '<button type="button" class="collapsible">📋 Additional Studies (Based on Clinical Suspicion)</button>';
+            labTests += '<div class="collapsible-content">';
+            labTests += '<div class="differential-item probability-medium">';
+            labTests += '<h4>Secondary Headache Workup:</h4>';
+            labTests += '<ul>';
+            labTests += '<li><strong>Basic Metabolic Panel:</strong> Electrolytes, glucose, BUN</li>';
+            labTests += '<li><strong>Thyroid Function:</strong> TSH, Free T4 (if clinical suspicion)</li>';
+            labTests += '<li><strong>ESR/CRP:</strong> Giant cell arteritis if age >50</li>';
+            labTests += '<li><strong>Drug Screen:</strong> If exposure history positive</li>';
+            labTests += '<li><strong>Carboxyhemoglobin:</strong> If CO exposure suspected</li>';
+            labTests += '</ul></div></div>';
+
+            // Imaging recommendations
+            labTests += '<button type="button" class="collapsible">🖼️ Neuroimaging Considerations</button>';
+            labTests += '<div class="collapsible-content">';
+            labTests += '<div class="differential-item probability-low">';
+            labTests += '<h4>Imaging Guidelines:</h4>';
+            labTests += '<ul>';
+            labTests += '<li><strong>MRI Brain:</strong> Preferred in pregnancy (no ionizing radiation)</li>';
+            labTests += '<li><strong>MRV (Magnetic Resonance Venography):</strong> If cerebral venous thrombosis suspected</li>';
+            labTests += '<li><strong>CT Head:</strong> If MRI unavailable - minimal fetal radiation exposure</li>';
+            labTests += '<li><strong>Contrast agents:</strong> Avoid gadolinium unless critical - iodinated contrast safer</li>';
+            labTests += '<li><strong>Indications:</strong> Red flags, focal neurological signs, altered mental status</li>';
+            labTests += '</ul></div></div>';
+
+            document.getElementById('differentialDiagnosis').innerHTML = urgency + '<div class="result-box">' + diffOutput + '</div>';
+            document.getElementById('labIndications').innerHTML = '<div class="result-box">' + labTests + '</div>';
+
+            nextStep(3);
+            
+            // Initialize collapsible sections
+            initializeCollapsibles();
+        }
+
+        // Initialize collapsible functionality
+        function initializeCollapsibles() {
+            setTimeout(() => {
+                const collapsibles = document.querySelectorAll('.collapsible');
+                collapsibles.forEach(coll => {
+                    // Remove any existing event listeners
+                    coll.replaceWith(coll.cloneNode(true));
+                });
+                
+                // Add event listeners to new elements
+                document.querySelectorAll('.collapsible').forEach(coll => {
+                    coll.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        const content = this.nextElementSibling;
+                        content.classList.toggle('active');
+                        
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                    });
+                });
+            }, 100);
+        }
+
+        // Generate final diagnosis
+        function generateFinalDiagnosis() {
+            const proteinuria = document.getElementById('proteinuria').value;
+            const platelets = parseInt(document.getElementById('platelets').value) || 0;
+            const alt = parseInt(document.getElementById('alt').value) || 0;
+            const ast = parseInt(document.getElementById('ast').value) || 0;
+            const creatinine = parseFloat(document.getElementById('creatinine').value) || 0;
+            const ldh = parseInt(document.getElementById('ldh').value) || 0;
+            const haptoglobin = parseInt(document.getElementById('haptoglobin').value) || 0;
+            const peripheralSmear = document.getElementById('peripheralSmear').value;
+            const wbcCount = parseFloat(document.getElementById('wbcCount').value) || 0;
+            const lumbarPuncture = document.getElementById('lumbarPuncture').value;
+            const pregnancyStatus = document.getElementById('pregnancyStatus').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+
+            // Generate clinical summary first
+            generateClinicalSummary();
+
+            let finalDiagnosis = '';
+            let treatment = '';
+            let monitoring = '';
+
+            // Analyze results and make final diagnosis
+            if ((pregnancyStatus === 'pregnant_>=20w' || pregnancyStatus.includes('postpartum')) && 
+                (bloodPressure === 'mild_htn' || bloodPressure === 'severe_htn')) {
+                
+                let preeclampsiaConfirmed = false;
+                let severity = 'mild';
+                let hellpSyndrome = false;
+
+                // Diagnostic criteria
+                if (proteinuria && !['negative', ''].includes(proteinuria)) {
+                    preeclampsiaConfirmed = true;
+                } else if (platelets > 0 && platelets < 100) {
+                    preeclampsiaConfirmed = true;
+                    severity = 'severe';
+                } else if (alt > 80 || ast > 80) {
+                    preeclampsiaConfirmed = true;
+                    severity = 'severe';
+                } else if (creatinine > 1.1) {
+                    preeclampsiaConfirmed = true;
+                    severity = 'severe';
+                }
+
+                // HELLP syndrome
+                if ((alt > 80 || ast > 80) && platelets < 100 && 
+                    (ldh > 600 || haptoglobin < 25 || peripheralSmear === 'schistocytes')) {
+                    hellpSyndrome = true;
+                    severity = 'severe';
+                }
+
+                if (bloodPressure === 'severe_htn') severity = 'severe';
+
+                if (preeclampsiaConfirmed) {
+                    finalDiagnosis = hellpSyndrome ? 
+                        '<h3>🚨 FINAL DIAGNOSIS: Preeclampsia with HELLP Syndrome</h3>' :
+                        '<h3>🚨 FINAL DIAGNOSIS: Preeclampsia (' + severity + ')</h3>';
+                    
+                    finalDiagnosis += '<p><strong>Laboratory Evidence:</strong></p><ul>';
+                    if (proteinuria && proteinuria !== 'negative') finalDiagnosis += '<li>Proteinuria: ' + proteinuria + '</li>';
+                    if (platelets < 100) finalDiagnosis += '<li>Thrombocytopenia: ' + platelets + ' ×10³/μL</li>';
+                    if (alt > 80 || ast > 80) finalDiagnosis += '<li>Elevated transaminases: ALT=' + alt + ', AST=' + ast + '</li>';
+                    if (creatinine > 1.1) finalDiagnosis += '<li>Elevated creatinine: ' + creatinine + ' mg/dL</li>';
+                    if (hellpSyndrome) {
+                        finalDiagnosis += '<li><strong>HELLP Syndrome confirmed:</strong></li>';
+                        if (ldh > 600) finalDiagnosis += '<li>• LDH: ' + ldh + ' U/L (hemolysis)</li>';
+                        if (haptoglobin < 25) finalDiagnosis += '<li>• Haptoglobin: ' + haptoglobin + ' mg/dL (hemolysis)</li>';
+                        if (peripheralSmear === 'schistocytes') finalDiagnosis += '<li>• Schistocytes present</li>';
+                    }
+                    finalDiagnosis += '</ul>';
+
+                    treatment = '<h3>💊 TREATMENT PLAN:</h3><ul>';
+                    treatment += '<li><strong>Antihypertensive:</strong> Nifedipine immediate-release 10-20mg SL/PO q20min or Labetalol 20mg IV q10min</li>';
+                    if (severity === 'severe' || hellpSyndrome) {
+                        treatment += '<li><strong>Seizure prophylaxis:</strong> MgSO₄ 4-6g IV loading, then 1-2g/h maintenance</li>';
+                    }
+                    treatment += '<li><strong>Headache:</strong> Acetaminophen 1000mg PO q6h</li>';
+                    treatment += '<li><strong>Delivery planning:</strong> Expedited delivery if severe features or ≥37 weeks</li>';
+                    if (hellpSyndrome) treatment += '<li><strong>HELLP specific:</strong> Consider corticosteroids, transfusion support</li>';
+                    treatment += '</ul>';
+
+                    monitoring = '<h3>👁️ MONITORING:</h3><ul>';
+                    monitoring += '<li>Continuous BP monitoring (q15min if severe)</li>';
+                    monitoring += '<li>Hourly I/O, neurological checks</li>';
+                    monitoring += '<li>Laboratory monitoring q6-12h if severe</li>';
+                    monitoring += '<li>Continuous fetal monitoring</li>';
+                    treatment += '</ul>';
+                } else {
+                    finalDiagnosis = '<h3>⚠️ Gestational Hypertension</h3>';
+                    finalDiagnosis += '<p>Does not meet criteria for preeclampsia.</p>';
+                }
+            }
+            
+            // Check other diagnoses if not preeclampsia
+            if (!finalDiagnosis) {
+                // Check for other conditions based on lab results and clinical data
+                const posturalComponent = document.getElementById('posturalComponent').value;
+                const neuraxialHistory = document.getElementById('neuraxialHistory').value;
+                
+                if (pregnancyStatus.includes('postpartum') && posturalComponent === 'present' && 
+                    neuraxialHistory !== 'none') {
+                    finalDiagnosis = '<h3>💉 FINAL DIAGNOSIS: Post-Dural Puncture Headache</h3>';
+                    treatment = '<h3>💊 TREATMENT:</h3><ul><li>Conservative: bed rest, caffeine</li><li>Definitive: epidural blood patch</li></ul>';
+                } else if (lumbarPuncture === 'pleocytosis' || lumbarPuncture === 'low_glucose') {
+                    finalDiagnosis = '<h3>🦠 FINAL DIAGNOSIS: Meningitis</h3>';
+                    treatment = '<h3>💊 TREATMENT:</h3><ul><li>Empiric antibiotics immediately</li><li>Dexamethasone if bacterial</li></ul>';
+                } else {
+                    finalDiagnosis = '<h3>🌪️ FINAL DIAGNOSIS: Primary Headache Disorder</h3>';
+                    finalDiagnosis += '<p>Based on clinical presentation and normal investigations.</p>';
+                    treatment = '<h3>💊 TREATMENT:</h3><ul><li>Symptomatic management</li><li>Pregnancy-safe medications</li></ul>';
+                }
+            }
+
+            const result = '<div class="result-box">' + finalDiagnosis + '</div>' +
+                          '<div class="result-box">' + treatment + '</div>' +
+                          '<div class="result-box">' + monitoring + '</div>';
+
+            document.getElementById('finalDiagnosis').innerHTML = result;
+            updateProgress(4);
+        }
+
+        // Generate clinical summary
+        function generateClinicalSummary() {
+            const pregnancyStatus = document.getElementById('pregnancyStatus').value;
+            const headacheType = document.getElementById('headacheType').value;
+            const headacheLocation = document.getElementById('headacheLocation').value;
+            const painIntensity = document.getElementById('painIntensity').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+            const associatedSymptoms = getAssociatedSymptoms();
+            const platelets = document.getElementById('platelets').value;
+            const proteinuria = document.getElementById('proteinuria').value;
+            const alt = document.getElementById('alt').value;
+
+            let summary = '<div class="clinical-summary">';
+            summary += '<h3>📋 CLINICAL CASE SUMMARY</h3>';
+            
+            // Patient demographics
+            let statusText = pregnancyStatus.replace('_', ' ').replace('<', '< ').replace('>=', '≥ ').replace('postpartum', 'postpartum');
+            summary += '<p><strong>Patient:</strong> ' + statusText.charAt(0).toUpperCase() + statusText.slice(1) + ' woman</p>';
+            
+            // Chief complaint
+            let headacheDesc = headacheType.replace('_', ' ') + ', ' + headacheLocation + ' headache';
+            summary += '<p><strong>Chief Complaint:</strong> ' + headacheDesc.charAt(0).toUpperCase() + headacheDesc.slice(1) + 
+                      ' (severity ' + painIntensity + '/10)</p>';
+            
+            // Associated symptoms
+            if (associatedSymptoms.length > 0) {
+                let symptoms = associatedSymptoms.map(s => s.replace(/([A-Z])/g, ' $1').toLowerCase()).join(', ');
+                summary += '<p><strong>Associated symptoms:</strong> ' + symptoms.charAt(0).toUpperCase() + symptoms.slice(1) + '</p>';
+            }
+            
+            // Vital signs
+            summary += '<p><strong>Vital signs:</strong> BP ' + bloodPressure.replace('_', ' ') + '</p>';
+            
+            // Laboratory results
+            if (platelets || proteinuria || alt) {
+                summary += '<p><strong>Key laboratory findings:</strong> ';
+                let labs = [];
+                if (platelets) labs.push('Platelets ' + platelets + ' ×10³/μL');
+                if (proteinuria && proteinuria !== 'negative') labs.push('Proteinuria ' + proteinuria);
+                if (alt) labs.push('ALT ' + alt + ' U/L');
+                summary += labs.join(', ') + '</p>';
+            }
+            
+            summary += '</div>';
+            
+            document.getElementById('clinicalSummary').innerHTML = summary;
+        }
+
+        // Initialize
+        updateProgress(1);
+        
+        // Initialize collapsible functionality when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCollapsibles();
+        });
+    </script>
+</body>
+</html>
